@@ -1,0 +1,3 @@
+INSERT INTO courier (name, start_time, end_time, max_mileage, has_refrigerated_box, charge_per_mile, is_available) VALUES ('bobby', '09:00', '13:00', 5, true, 1.75, true);
+INSERT INTO courier (name, start_time, end_time, max_mileage, has_refrigerated_box, charge_per_mile, is_available) VALUES ('Martin', '09:00', '17:00', 3, false, 1.50, true);
+INSERT INTO courier(name, start_time, end_time, max_mileage, has_refrigerated_box, charge_per_mile, is_available) VALUES ('Geoff', '10:00', '16:00', 4, false, 2, true);
