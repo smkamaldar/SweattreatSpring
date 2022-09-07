@@ -2,7 +2,14 @@ package com.shop.sweattreat.model;
 
 
 
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.text.ParseException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -19,16 +26,28 @@ public class Courier {
     private Long id;
     //    Use LocalTime.format(DateTimeFormatter) method to format a local time to the desired string representation
 
+    @Length(min=3)
+    @NotBlank
     @Column(name="name")
     private String name;
+
+//    @DateTimeFormat
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @Column(name="start_time")
     private LocalTime startTime;
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
     @Column(name="end_time")
     private LocalTime endTime;
+    @NotNull
+    @Min(2)
     @Column(name="max_mileage")
     private int maxMileage;
+    @NotNull
     @Column(name="has_refrigerated_box")
     private boolean hasRefrigeratedBox;
+    @NotNull
     @Column(name="charge_per_mile")
     private double chargePerMile;
     @Column(name="is_available")
@@ -59,8 +78,8 @@ public class Courier {
     }
 
     public void setStartTime(String startTime) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        this.startTime = LocalTime.parse(startTime,formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        this.startTime = LocalTime.parse(startTime);
     }
 
     public LocalTime getEndTime() {
@@ -68,8 +87,8 @@ public class Courier {
     }
 
     public void setEndTime(String endTime) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        this.endTime =  LocalTime.parse(endTime,formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        this.endTime =  LocalTime.parse(endTime);
     }
 
     public boolean getIsAvailable() {
