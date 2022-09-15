@@ -40,7 +40,6 @@ public class CourierServiceImpl implements CourierService{
 
 
     public Courier addCourier(Courier courier) {
-
       return  courierRepository.save(courier);
 //       listCourier().add(courier);
 //       return courier;
@@ -48,7 +47,7 @@ public class CourierServiceImpl implements CourierService{
     }
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-    public Courier book(String time, int mileage, boolean needRefrigrator) {
+    public Courier book(String time, int mileage, boolean needRefrigerator) {
         Courier cheapest = null;
         LocalTime requestedTime = LocalTime.parse(time, formatter);
 
@@ -56,7 +55,7 @@ public class CourierServiceImpl implements CourierService{
                 .filter(courier -> courier.getEndTime().isAfter(requestedTime)
                         && courier.getStartTime().isBefore(requestedTime)
                         && courier.getMaxMileage() >= mileage
-                        && courier.getHasRefrigeratedBox() == needRefrigrator)
+                        && courier.getHasRefrigeratedBox() == needRefrigerator)
                 .collect(Collectors.toList());
 
         if (!filter.isEmpty()) {

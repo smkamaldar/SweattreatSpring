@@ -1,15 +1,12 @@
 package com.shop.sweattreat.repository;
 
 import com.shop.sweattreat.model.Courier;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+
 @Repository
 //there is no implementation, because spring boot provides us
 //spring data jpa handles the rest for us

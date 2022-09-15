@@ -1,21 +1,11 @@
 package com.shop.sweattreat.model;
-
-
-
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.text.ParseException;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 
-// we told Lombok to generate these for all the fields of the class.
 
 @Entity
 public class Courier {
@@ -24,29 +14,26 @@ public class Courier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
-    //    Use LocalTime.format(DateTimeFormatter) method to format a local time to the desired string representation
-
-    @Length(min=3)
-    @NotBlank
+    @NotNull(message= "must not be ignored")
+    @Length(min=3, message="not allowed less than 3")
     @Column(name="name")
     private String name;
 
 //    @DateTimeFormat
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    @NotNull(message="A valid time must be provided")
     @Column(name="start_time")
     private LocalTime startTime;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    @NotNull(message="A valid time must be provided")
     @Column(name="end_time")
     private LocalTime endTime;
-    @NotNull
+    @NotNull(message = "you need to provide your max mileage")
     @Min(2)
     @Column(name="max_mileage")
     private int maxMileage;
-    @NotNull
+    @NotNull(message = "you need to provide true or false value")
     @Column(name="has_refrigerated_box")
     private boolean hasRefrigeratedBox;
+    @Positive(message = "your rate must be a positive value")
     @NotNull
     @Column(name="charge_per_mile")
     private double chargePerMile;

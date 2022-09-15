@@ -10,7 +10,7 @@ public interface CourierService {
     Courier findCourier(long id) ;
     List<Courier> availableCouriers();
     Courier addCourier(Courier courier);
-    Courier book(String time, int mileage, boolean needRefrigrator);
+    Courier book(String time, int mileage, boolean needRefrigerator);
     void delete(Long id);
 
 

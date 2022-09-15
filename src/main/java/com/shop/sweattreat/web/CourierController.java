@@ -7,11 +7,11 @@ import com.shop.sweattreat.service.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +19,11 @@ import java.util.List;
 @RequestMapping("sweat")
 public class CourierController {
     private CourierService courierService;
-    private CourierRepository courierRepository;
+    private final CourierRepository courierRepository;
 
     @Autowired
     public CourierController(CourierRepository courierRepository) {
+
         this.courierRepository = courierRepository;
     }
 
@@ -55,11 +56,11 @@ public class CourierController {
 
 
     @PostMapping("addCourier")
-    public  ResponseEntity<Courier> addCourier(@Valid @RequestBody Courier newCourier) throws MethodArgumentNotValidException {
+    public  ResponseEntity<Courier> addCourier(@Valid @RequestBody Courier newCourier)  {
         ArrayList<String> names = courierRepository.getCourierName();
         for (String name : names) {
             if (newCourier.getName().equals(name)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user is exists");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user exists.");
             }
         }
         newCourier.setIsAvailable(true);
@@ -69,8 +70,8 @@ public class CourierController {
 
 
     @GetMapping("cheapest")
-    public ResponseEntity<Courier> getCheapestCourier(@RequestParam String time, int mileage, boolean needRefrigrator){
-        Courier cheapest = courierService.book(time,mileage,needRefrigrator);
+    public ResponseEntity<Courier> getCheapestCourier(@RequestParam("time") String time,@RequestParam("mileage") @NotNull() int mileage , boolean needRefrigerator){
+        Courier cheapest = courierService.book(time,mileage, needRefrigerator);
         return new ResponseEntity<Courier>(cheapest,HttpStatus.OK);
     }
 
